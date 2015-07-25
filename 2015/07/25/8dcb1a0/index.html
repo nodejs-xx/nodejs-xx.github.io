@@ -1,0 +1,626 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="1XvvwQ7Apt" />
+  
+    <title>利用OpenShift托管Node.js Web服务进行微信公众号开发 - | dianzi blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="edwin">
+    
+
+    
+    <meta name="description" content="&amp;#x6700;&amp;#x8FD1;&amp;#x5199;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x5FAE;&amp;#x4FE1;&amp;#x7684;&amp;#x7FFB;&amp;#x8BD1;&amp;#x673A;&amp;#x5668;&amp;#x4EBA;&amp;#x3002;&amp;#x7528;&amp;#x6237;&amp;#x53EA;&amp;#x8981;&amp;#x5173;&amp;#x6CE8;&amp;#x8BE5;&amp;#x5FAE;&amp;#x4FE1;&amp;#x53F7;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用OpenShift托管Node.js Web服务进行微信公众号开发 -">
+<meta property="og:url" content="http://taojinke.github.io/2015/07/25/8dcb1a0/index.html">
+<meta property="og:site_name" content="dianzi blog">
+<meta property="og:description" content="&amp;#x6700;&amp;#x8FD1;&amp;#x5199;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x5FAE;&amp;#x4FE1;&amp;#x7684;&amp;#x7FFB;&amp;#x8BD1;&amp;#x673A;&amp;#x5668;&amp;#x4EBA;&amp;#x3002;&amp;#x7528;&amp;#x6237;&amp;#x53EA;&amp;#x8981;&amp;#x5173;&amp;#x6CE8;&amp;#x8BE5;&amp;#x5FAE;&amp;#x4FE1;&amp;#x53F7;">
+<meta property="og:image" content="http://taojinke.github.io/img/20150725/8dc9ba7.png">
+<meta property="og:updated_time" content="2015-07-25T14:50:55.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用OpenShift托管Node.js Web服务进行微信公众号开发 -">
+<meta name="twitter:description" content="&amp;#x6700;&amp;#x8FD1;&amp;#x5199;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x5FAE;&amp;#x4FE1;&amp;#x7684;&amp;#x7FFB;&amp;#x8BD1;&amp;#x673A;&amp;#x5668;&amp;#x4EBA;&amp;#x3002;&amp;#x7528;&amp;#x6237;&amp;#x53EA;&amp;#x8981;&amp;#x5173;&amp;#x6CE8;&amp;#x8BE5;&amp;#x5FAE;&amp;#x4FE1;&amp;#x53F7;">
+
+    
+    <link rel="alternative" href="/atom.xml" title="dianzi blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?345f95aea4ada2935d6f9ea4177b51ab";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="dianzi blog" title="dianzi blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="dianzi blog">dianzi blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					<li>
+                        <a href="http://sblig.club/" target="_blank">Master</a>
+                    </li>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+						<a href="/music/index.html" target="_blank">Music</a>
+					</li>
+					<li>
+ 					
+						<form class="search" action="http://taojinke.github.io/" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/25/8dcb1a0/" title="利用OpenShift托管Node.js Web服务进行微信公众号开发 -" itemprop="url">利用OpenShift托管Node.js Web服务进行微信公众号开发 -</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="edwin" target="_blank" itemprop="author">edwin</a>
+		
+  <p class="article-time">
+    <time datetime="2015-07-25T02:50:55.000Z" itemprop="datePublished"> 发表于 2015-07-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_微信公众号开发"><span class="toc-number">1.</span> <span class="toc-text">1. 微信公众号开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_利用OpenShift托管Node-js_Web服务"><span class="toc-number">2.</span> <span class="toc-text">2. 利用OpenShift托管Node.js Web服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_使用bing-translate_和wechat_NPM_module"><span class="toc-number">3.</span> <span class="toc-text">3. 使用bing-translate 和wechat NPM module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-_关于Microsoft_Bing_Translation_API"><span class="toc-number">4.</span> <span class="toc-text">4. 关于Microsoft Bing Translation API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资源"><span class="toc-number">5.</span> <span class="toc-text">参考资源</span></a></li></ol>
+		
+		</div>
+		
+		<p>&#x6700;&#x8FD1;&#x5199;&#x4E86;&#x4E00;&#x4E2A;&#x5FAE;&#x4FE1;&#x7684;&#x7FFB;&#x8BD1;&#x673A;&#x5668;&#x4EBA;&#x3002;&#x7528;&#x6237;&#x53EA;&#x8981;&#x5173;&#x6CE8;&#x8BE5;&#x5FAE;&#x4FE1;&#x53F7;&#xFF0C;&#x53D1;&#x9001;&#x82F1;&#x6587;&#x7684;&#x6D88;&#x606F;&#xFF0C;&#x5C31;&#x80FD;&#x6536;&#x5230;&#x4E2D;&#x6587;&#x7FFB;&#x8BD1;&#x7684;&#x56DE;&#x590D;&#x3002;&#x540E;&#x53F0;&#x662F;&#x7528;Node.js&#x5199;&#x7684;&#xFF0C;&#x6258;&#x7BA1;&#x5728;OpenShift&#x7684;Paas&#x5E73;&#x53F0;&#x4E0A;&#x3002;&#x7FFB;&#x8BD1;&#x8FC7;&#x7A0B;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x8C03;&#x7528;&#x5FAE;&#x8F6F;&#x7684;Bing translation API&#x505A;&#x7684;&#xFF0C;&#x4EE3;&#x7801;&#x4E2D;&#x7528;&#x5230;&#x4E86;alexu84&#x7684;bing-translate&#x548C;JacksonTian&#x7684;wechat&#x8FD9;&#x4E24;&#x4E2A;npm&#x6A21;&#x5757;&#x3002;&#x4E0B;&#x9762;&#x628A;&#x505A;&#x7684;&#x8FC7;&#x7A0B;&#x8BE6;&#x7EC6;&#x8BF4;&#x4E00;&#x4E0B;&#x3002;</p>
+<h2 id="1-_&#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7;&#x5F00;&#x53D1;">1. &#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7;&#x5F00;&#x53D1;</h2><p>&#x9996;&#x5148;&#x662F;&#x8981;&#x5230; <a href="https://mp.weixin.qq.com" target="_blank" rel="external">https://mp.weixin.qq.com</a> &#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x516C;&#x4F17;&#x53F7;&#xFF0C;&#x5E76;&#x7533;&#x8BF7;&#x6210;&#x4E3A;&#x5F00;&#x53D1;&#x8005;&#x3002;&#x76EE;&#x524D;&#x4E2A;&#x4EBA;&#x53EA;&#x80FD;&#x7533;&#x8BF7;&#x8BA2;&#x9605;&#x53F7;&#xFF0C;&#x4E0D;&#x8FC7;&#x8BA2;&#x9605;&#x53F7;&#x4E5F;&#x53EF;&#x4EE5;&#x548C;&#x7528;&#x6237;&#x8FDB;&#x884C;&#x6D88;&#x606F;&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x8FD9;&#x5BF9;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x6765;&#x8BF4;&#x8DB3;&#x591F;&#x4E86;&#x3002; </p>
+<p>&#x6210;&#x4E3A;&#x5F00;&#x53D1;&#x8005;&#x540E;&#xFF0C;&#x5FAE;&#x4FE1;&#x4F1A;&#x7ED9;&#x4F60;&#x4E00;&#x4E2A;AppID&#x548C;&#x4E00;&#x4E2A;AppSecret&#xFF0C;&#x90FD;&#x662F;&#x4E00;&#x957F;&#x4E32;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x5728;&#x5F00;&#x53D1;&#x6211;&#x4EEC;&#x8FD9;&#x4E2A;&#x5E94;&#x7528;&#x65F6;&#xFF0C;&#x53EA;&#x8981;&#x7528;&#x5230;AppID&#x3002;</p>
+<p>&#x5FAE;&#x4FE1;&#x5BA2;&#x6237;&#x7AEF;&#x4F1A;&#x63A5;&#x53D7;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7684;&#x6D88;&#x606F;&#xFF0C;&#x5E76;&#x628A;&#x5B83;&#x4EEC;&#x8F6C;&#x7ED9;&#x6211;&#x4EEC;&#x7684;Web&#x670D;&#x52A1;&#x3002;&#x6240;&#x4EE5;&#x5FAE;&#x4FE1;&#x4F1A;&#x8981;&#x6C42;&#x6211;&#x4EEC;&#x586B;&#x5199;&#x6211;&#x4EEC;Web&#x670D;&#x52A1;&#x7684;URL&#x5730;&#x5740;&#xFF0C;Token&#xFF08;&#x4EE4;&#x724C;)&#xFF0C;EncodingAESKey&#xFF08;&#x6D88;&#x606F;&#x52A0;&#x89E3;&#x5BC6;&#x5BC6;&#x94A5;&#xFF09;&#x3002;&#x9875;&#x9762;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
+<p><img src="http://taojinke.github.io/img/20150725/8dc9ba7.png" alt="wechat-mp-dev-config"></p>
+<p>&#x5927;&#x81F4;&#x4E0A;&#xFF0C;&#x586B;&#x5199;&#x597D;&#x4FE1;&#x606F;&#x5E76;&#x63D0;&#x4EA4;&#x540E;&#xFF0C;&#x5FAE;&#x4FE1;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x53D1;&#x9001;&#x4E00;&#x4E2A;GET&#x8BF7;&#x6C42;&#x5230;&#x6211;&#x4EEC;&#x7684;Web&#x670D;&#x52A1;&#xFF0C;&#x643A;&#x5E26;&#x4E0A;Token&#x548C;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x6211;&#x4EEC;&#x7684;Web&#x670D;&#x52A1;&#x5FC5;&#x987B;&#x6309;&#x7167;&#x5FAE;&#x4FE1;&#x5F00;&#x53D1;&#x8005;&#x6587;&#x6863;&#x89C4;&#x5B9A;&#x7684;&#x65B9;&#x5F0F;&#x5904;&#x7406;&#x8FD9;&#x4E2A;&#x8BF7;&#x6C42;&#xFF0C;&#x539F;&#x6837;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;&#x968F;&#x673A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8FD9;&#x6837;&#x5FAE;&#x4FE1;&#x670D;&#x52A1;&#x5668;&#x624D;&#x8BA4;&#x4E3A;&#x6211;&#x4EEC;&#x7684;Web&#x670D;&#x52A1;&#x662F;&#x7B26;&#x5408;&#x5B83;&#x7684;&#x63A5;&#x5165;&#x8981;&#x6C42;&#x7684;&#x3002;&#x5FAE;&#x4FE1;&#x670D;&#x52A1;&#x5668;&#x8F6C;&#x53D1;&#x6D88;&#x606F;&#x7ED9;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;Web&#x670D;&#x52A1;&#x65F6;&#xFF0C;&#x662F;&#x4EE5;&#x4E00;&#x4E2A;POST&#x6D88;&#x606F;&#x643A;&#x5E26;&#x4E0A;&#x4E00;&#x4E2A;XML&#x6570;&#x636E;&#x5305;&#xFF0C;&#x6211;&#x4EEC;&#x7684;web&#x670D;&#x52A1;&#x5FC5;&#x987B;&#x89E3;&#x6790;&#x8FD9;&#x4E2A;XML&#x6570;&#x636E;&#x5305;&#x624D;&#x80FD;&#x53D6;&#x5F97;&#x7528;&#x6237;&#x53D1;&#x7684;&#x6D88;&#x606F;&#x3002;&#x540C;&#x6837;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x56DE;&#x590D;&#x6D88;&#x606F;&#x7ED9;&#x5FAE;&#x4FE1;&#x670D;&#x52A1;&#x5668;&#x65F6;&#xFF0C;&#x4E5F;&#x8981;&#x6EE1;&#x8DB3;&#x5176;&#x89C4;&#x5B9A;&#x7684;&#x8981;&#x6C42;&#x3002;&#x6240;&#x6709;&#x8FD9;&#x4E9B;&#xFF0C;&#x5728;&#x5FAE;&#x4FE1;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x6587;&#x6863;&#x4E2D;&#x90FD;&#x6709;&#x8BE6;&#x7EC6;&#x7684;&#x63CF;&#x8FF0;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5F53;&#x7136;&#x53EF;&#x4EE5;&#x4ED4;&#x7EC6;&#x9605;&#x8BFB;&#x5FAE;&#x4FE1;&#x7684; <a href="http://mp.weixin.qq.com/wiki/17/2d4265491f12608cd170a95559800f2d.html" target="_blank" rel="external">&#x5F00;&#x53D1;&#x8005;&#x6587;&#x6863;</a> &#xFF0C;&#x5E76;&#x81EA;&#x5DF1;&#x6309;&#x8981;&#x6C42;&#x4E00;&#x4E00;&#x5B9E;&#x73B0;&#x5BF9;&#x5E94;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x4E0D;&#x8FC7;&#x8FD9;&#x6837;&#x592A;&#x9EBB;&#x70E6;&#x4E86;:-)&#x3002;&#x66F4;&#x65B9;&#x4FBF;&#x7684;&#x65B9;&#x5F0F;&#x662F;&#x4F7F;&#x7528; <a href="https://github.com/node-webot/wechat" target="_blank" rel="external">JacksonTian&#x7684;&#x5FAE;&#x4FE1;&#x5F00;&#x53D1;Node.js&#x6A21;&#x5757;</a> &#x3002;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x586B;&#x5165;&#x6211;&#x4EEC;&#x7684;Token&#xFF0C;APPID&#x4EE5;&#x53CA;EncodingAESKey&#xFF0C;&#x5B83;&#x81EA;&#x52A8;&#x5C31;&#x5E2E;&#x6211;&#x4EEC;&#x5904;&#x7406;&#x597D;&#x5FAE;&#x4FE1;&#x670D;&#x52A1;&#x5668;&#x7684;&#x9A8C;&#x8BC1;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x83B7;&#x53D6;/&#x56DE;&#x590D;&#x7528;&#x6237;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x6D88;&#x606F;&#xFF0C;&#x4F7F;&#x6211;&#x4EEC;&#x4E0D;&#x7528;&#x5904;&#x7406;XML&#x6570;&#x636E;&#x89E3;&#x6790;&#x7B49;&#x7EC6;&#x8282;&#x95EE;&#x9898;&#x3002;&#x5728;&#x4E0B;&#x6587;&#x6211;&#x4F1A;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x3002; </p>
+<h2 id="2-_&#x5229;&#x7528;OpenShift&#x6258;&#x7BA1;Node-js_Web&#x670D;&#x52A1;">2. &#x5229;&#x7528;OpenShift&#x6258;&#x7BA1;Node.js Web&#x670D;&#x52A1;</h2><p>&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x77E5;&#x9053;&#x5982;&#x4F55;&#x7528;Node.js&#x5F00;&#x53D1;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#x3002;&#x672C;&#x6587;&#x4E0D;&#x6253;&#x7B97;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x8FD9;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x3002;&#x57FA;&#x672C;&#x4E0A;&#xFF0C;&#x5229;&#x7528;express&#x6A21;&#x5757;&#xFF0C;&#x53EA;&#x9700;&#x51E0;&#x884C;&#x4EE3;&#x7801;&#x5C31;&#x53EF;&#x4EE5;&#x642D;&#x8D77;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#xFF0C;&#x50CF;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code><span class="keyword">var</span> express = require(&amp;apos;express&amp;apos;);
+
+<span class="keyword">var</span> app = express();
+app.listen(<span class="number">80</span>);
+
+app.<span class="keyword">get</span>(&amp;apos;/&amp;apos;, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> </span>{
+    res.send(&amp;quot;hello world&amp;apos;);
+});
+</code></pre><p>&#x642D;&#x5EFA;&#x597D;web&#x670D;&#x52A1;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#xFFFD;&#xFFFD;&#xFFFD;&#x8981;&#x4E00;&#x4E2A;&#x62E5;&#x6709;&#x516C;&#x6709;IP&#x7684;&#x670D;&#x52A1;&#x5668;&#x6765;&#x8FD0;&#x884C;&#x8FD9;&#x4E9B;&#x4EE3;&#x7801;&#x3002;&#x5728;&#x8FD9;&#x65B9;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x6709;&#x5F88;&#x591A;&#x9009;&#x62E9;&#xFF0C;&#x672C;&#x6587;&#x4F7F;&#x7528;OpenShift&#x7684;&#x5E94;&#x7528;&#x6258;&#x7BA1;&#x670D;&#x52A1;&#x3002;</p>
+<p>Youtube&#x4E0A;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x597D;&#x7684; <a href="https://www.youtube.com/watch?v=wnRtA7a0ST0" target="_blank" rel="external">&#x89C6;&#x9891;</a> &#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x5229;&#x7528;OpenShift&#x5EFA;&#x7ACB;&#x548C;&#x53D1;&#x5E03;&#x4E00;&#x4E2A;Node.js&#x5E94;&#x7528;&#xFF0C;step by step&#x7EA7;&#x522B;&#x7684;&#xFF0C;&#x975E;&#x5E38;&#x7684;&#x8BE6;&#x7EC6;&#x3002;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x770B;&#x524D;30&#x5206;&#x949F;&#x5C31;&#x884C;&#x4E86;&#x3002;&#x57FA;&#x672C;&#x4E0A;&#xFF0C;Openshift&#x4F7F;&#x7528;git&#x6765;&#x7BA1;&#x7406;&#x4EE3;&#x7801;&#x5F00;&#x53D1;&#x4EE5;&#x53CA;&#x53D1;&#x5E03;&#x7684;&#x8FC7;&#x7A0B;&#x3002;&#x4F60;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#xFF0C;OpenShift&#x5C31;&#x5728;&#x4E91;&#x7AEF;&#x4E3A;&#x4F60;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;Git&#x4ED3;&#x5E93;&#xFF0C;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#x7684;Node.js&#x5E94;&#x7528;&#xFF0C;&#x5E76;&#x628A;&#x5B83;&#x5728;&#x4E91;&#x7AEF;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x4E86;&#x3002;&#x6211;&#x4EEC;&#x53EA;&#x8981;&#x628A;&#x8FD9;&#x4E2A;Git&#x4ED3;&#x5E93;&#x7684;&#x4EE3;&#x7801;Clone&#x5230;&#x672C;&#x5730;&#xFF0C;&#x4FEE;&#x6539;&#x5176;&#x4E2D;&#x7684;server.js&#xFF0C;&#x5E76;&#x628A;&#x4FEE;&#x6539;&#x597D;&#x7684;&#x4EE3;&#x7801;push&#x5230;&#x4E91;&#x7AEF;&#xFF0C;Openshift&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x5E2E;&#x6211;&#x4EEC;&#x505C;&#x6389;&#x5F53;&#x524D;&#x7684;&#x793A;&#x4F8B;&#x670D;&#x52A1;&#xFF0C;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x4EE3;&#x7801;&#xFF0C;&#x91CD;&#x65B0;&#x53D1;&#x5E03;&#x5E76;&#x628A;&#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x8FC7;&#x540E;&#x7684;&#x670D;&#x52A1;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x3002;&#x8D85;&#x7EA7;&#x7684;&#x7B80;&#x5355;&#xFF0C;&#x662F;&#x4E0D;&#x662F;&#xFF1F; </p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x7A0D;&#x5FAE;&#x8BE6;&#x7EC6;&#x4E00;&#x70B9;&#x7684;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<p>1&#xFF09;&#x5B89;&#x88C5;OpenShift&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x5DE5;&#x5177; <a href="https://developers.openshift.com/en/getting-started-windows.html" target="_blank" rel="external">rhc</a> &#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5229;&#x7528;&#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#x521B;&#x5EFA;&#x3001;&#x53D1;&#x5E03;Node.js&#x5E94;&#x7528; </p>
+<p>2&#xFF09;&#x5728;command line&#x7A97;&#x53E3;&#x8FD0;&#x884C; $ rhc app create &lt;my app name&gt; nodejs-0.10&#x3002;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x4E3A;&#x6211;&#x4EEC;&#x5728;&#x4E91;&#x7AEF;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;Git&#x4ED3;&#x5E93;&#xFF0C;&#x628A;&#x5185;&#x542B;&#x7684;&#x793A;&#x4F8B;&#x5E94;&#x7528;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#xFF0C;&#x5E76;&#x628A;&#x4EE3;&#x7801;&#x5E2E;&#x6211;&#x4EEC;clone&#x5230;&#x4E86;&#x672C;&#x5730;&#x3002;</p>
+<p>3&#xFF09;&#x4FEE;&#x6539;server.js&#xFF0C;&#x8FD0;&#x884C;&#xFF1A;</p>
+<p>$ git commit -am &lt;some comment&gt;</p>
+<p>$ git push</p>
+<p>&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;web&#x670D;&#x52A1;&#x5C31;&#x5728;&#x4E91;&#x7AEF;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x4E86;!</p>
+<h2 id="3-_&#x4F7F;&#x7528;bing-translate_&#x548C;wechat_NPM_module">3. &#x4F7F;&#x7528;bing-translate &#x548C;wechat NPM module</h2><p>&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x7A0D;&#x5FAE;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;&#x5982;&#x4F55;&#x4FEE;&#x6539;server.js&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;bing-translate&#x548C;wechat&#x8FD9;&#x4E24;&#x4E2A;NPM&#x6A21;&#x5757;&#x7684;&#x3002;</p>
+<p>&#x8FD8;&#x662F;&#x76F4;&#x63A5;&#x4E0A;&#x4EE3;&#x7801;&#x5427;&#xFF0C;&#x56E0;&#x4E3A;&#x603B;&#x5171;&#x5C31;&#x4E0D;&#x5230;40&#x884C;&#x4EE3;&#x7801;&#x3002;&#x5176;&#x4E2D;&#x7B2C;18&#x884C;&#x5C55;&#x793A;&#x4E86;&#x5982;&#x4F55;&#x4F7F;&#x7528;wechat&#xFF0C;&#x7B2C;23&#x884C;&#x5C55;&#x793A;&#x4E86;&#x5982;&#x4F55;&#x4F7F;&#x7528;bing-translate&#x3002;</p>
+<pre><code>var express = require<span class="list">(<span class="keyword">&amp;apos</span><span class="comment">;express&amp;apos;);</span>
+var kutil = require<span class="list">(<span class="keyword">&amp;apos</span><span class="comment">;./util/kutil.js&amp;apos;);</span>
+var wechat = require<span class="list">(<span class="keyword">&amp;apos</span><span class="comment">;wechat&amp;apos;);</span>
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || <span class="number">8080</span>
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || <span class="keyword">&amp;apos</span><span class="comment">;127.0.0.1&amp;apos;</span>
+var client_id_secret = kutil.readJsonFromFile<span class="list">(<span class="keyword">&amp;apos</span><span class="comment">;./res/client_id_secret.json&amp;apos;);</span>
+var wechat_app_config = kutil.readJsonFromFile<span class="list">(<span class="keyword">&amp;apos</span><span class="comment">;./res/wechat_app_config.json&amp;apos;);</span>
+var bt = require<span class="list">(<span class="keyword">&amp;apos</span><span class="comment">;./util/bing-translate.js&amp;apos;).init(client_id_secret);</span>
+var app = express<span class="list">()</span><span class="comment">;</span>
+app.listen<span class="list">(<span class="keyword">server_port</span>, server_ip_address)</span><span class="comment">;</span>
+// wechat API
+app.use<span class="list">(<span class="keyword">express</span>.query<span class="list">()</span>)</span><span class="comment">;</span>
+app.use<span class="list">(<span class="keyword">&amp;apos</span><span class="comment">;/wechat&amp;apos;, wechat(wechat_app_config, function (req, res, next) {</span>
+    var message = req.weixin<span class="comment">;</span>
+    if <span class="list">(<span class="keyword">message</span>.MsgType == <span class="keyword">&amp;apos</span><span class="comment">;text&amp;apos;) {</span>
+        var input_word = message.Content<span class="comment">;</span>
+        bt.translate<span class="list">(<span class="keyword">input_word</span>, <span class="keyword">&amp;apos</span><span class="comment">;en&amp;apos;, &amp;apos;zh-CHS&amp;apos;, function (translate_err, translate_res) {</span>
+            if <span class="list">(<span class="keyword">translate_err</span>)</span> {
+                res.reply<span class="list">({
+                    content: <span class="keyword">&amp;apos</span><span class="comment">;translation error&amp;apos;,</span>
+                    type: <span class="keyword">&amp;apos</span><span class="comment">;text&amp;apos;</span>
+                })</span><span class="comment">;</span>
+                return<span class="comment">;</span>
+            }
+            var translate_result = translate_res[<span class="keyword">&amp;quot</span><span class="comment">;translated_text&amp;quot;];</span>
+            res.reply<span class="list">({
+                content: translate_result,
+                type: <span class="keyword">&amp;apos</span><span class="comment">;text&amp;apos;</span>
+            })</span><span class="comment">;</span>
+        })</span><span class="comment">;</span>
+    }
+})</span>)</span><span class="comment">;</span></span></span></span></span></span></span>
+</code></pre><p>&#x56E0;&#x4E3A;&#x6211;&#x4E0D;&#x60F3;&#x5728;&#x5F00;&#x6E90;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x660E;&#x6587;&#x5199;&#x4E0A;&#x6211;&#x7684;&#x5FAE;&#x4FE1;APPID&#x7B49;&#x654F;&#x611F;&#x4FE1;&#x606F;&#xFF0C;&#x6211;&#x53C8;&#x5199;&#x4E86;&#x4E00;&#x4E2A;util&#x4ECE;Json&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F;&#x3002;&#x7B2C;8&#x884C;&#x662F;&#x8BFB;Bing translation app&#x7684;ID&#x548C;secret&#xFF0C;&#x7B2C;9&#x884C;&#x662F;&#x8BFB;&#x5FAE;&#x4FE1;&#x7684;APPID&#x7B49;&#x4FE1;&#x606F;&#x3002;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F;&#x90FD;&#x5206;&#x522B;&#x5199;&#x5728;&#x4E00;&#x4E2A;Json&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x683C;&#x5F0F;&#x5982;&#x4E0B;:</p>
+<pre><code>{
+    &amp;quot<span class="comment">;client_id&amp;quot;: &amp;quot;your-Bing-translator-app-client_id&amp;quot;,</span>
+    &amp;quot<span class="comment">;client_secret&amp;quot;: &amp;quot;your-Bing-translator-app-client_secret&amp;quot;</span>
+}
+
+{
+    &amp;quot<span class="comment">;token&amp;quot;: &amp;quot;your_wechat_app_token&amp;quot;,</span>
+    &amp;quot<span class="comment">;appid&amp;quot;: &amp;quot;your_wechat_app_appid&amp;quot;,</span>
+    &amp;quot<span class="comment">;encodingAESKey&amp;quot;: &amp;quot;your_wechat_app_AESKey&amp;quot;</span>
+}
+</code></pre><p>&#x53E6;&#x5916;&#xFF0C;&#x6709;&#x4EBA;&#x53EF;&#x80FD;&#x4F1A;&#x6CE8;&#x610F;&#x5230;&#x6211;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x4F7F;&#x7528;alexu84&#x7684;bing-translate&#x6A21;&#x5757;&#xFF0C;&#x800C;&#x662F;&#x5F15;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x7684;bing-translate.js&#x6587;&#x4EF6;&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x5BF9;&#x8BE5;&#x6A21;&#x5757;&#x7684;&#x6E90;&#x6587;&#x4EF6;&#x505A;&#x4E86;&#x5C11;&#x91CF;&#x7684;&#x6539;&#x52A8;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x5728;&#x672C;&#x5730;cache&#x4E86;&#x4E00;&#x4E2A;Bing translation API&#x7684;token&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x7528;&#x6BCF;&#x6B21;&#x7FFB;&#x8BD1;&#x7684;&#x65F6;&#x5019;&#x90FD;&#x53BB;&#x8C03;&#x5FAE;&#x8F6F;&#x7684;Web API&#x91CD;&#x65B0;&#x62FF;token&#x4E86;&#xFF0C;&#x7FFB;&#x8BD1;&#x54CD;&#x5E94;&#x7684;&#x901F;&#x5EA6;&#x4F1A;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x3002;&#x6709;&#x7A7A;&#x7684;&#x65F6;&#x5019;&#x6211;&#x4F1A;&#x628A;&#x8FD9;&#x4E2A;&#x6539;&#x52A8;push&#x7ED9;alexu84&#x8BD5;&#x8BD5;&#x770B;&#x3002;</p>
+<h2 id="4-_&#x5173;&#x4E8E;Microsoft_Bing_Translation_API">4. &#x5173;&#x4E8E;Microsoft Bing Translation API</h2><p>&#x5927;&#x5BB6;&#x90FD;&#x6CE8;&#x610F;&#x5230;&#x5728;&#x4E0A;&#x4E00;&#x90E8;&#x5206;&#x6211;&#x4EEC;&#x8981;&#x586B;&#x5165;Bing Translation&#x7684;client ID&#x548C;client secret&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;Bing Translation API&#x4E5F;&#x662F;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5230;&#x8FD9;&#x4E2A; <a href="http://blogs.msdn.com/b/translation/p/gettingstarted1.aspx" target="_blank" rel="external">&#x9875;&#x9762;</a> &#x53BB;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;Bing Translation&#x7684;app&#xFF0C;&#x7533;&#x8BF7;&#x597D;&#x540E;&#xFF0C;&#x5C31;&#x6709;&#x4E86;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;client ID &#x548C; secret&#x3002;&#x5F53;&#x7136;&#x8FD9;&#x91CC;&#x53EF;&#x80FD;&#x6D89;&#x53CA;&#x8981;&#x6CE8;&#x518C;&#x5FAE;&#x8F6F;&#x7684;&#x8D26;&#x53F7;&#x4EC0;&#x4E48;&#x7684;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x8D58;&#x8FF0;&#x4E86;&#x3002; </p>
+<p> <strong>&#x6700;&#x540E;&#xFF0C;</strong> &#x6211;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x653E;&#x5230;&#x4E86; <a href="https://github.com/kaige/KDict/tree/master/openshift_host_code/kdict" target="_blank" rel="external">GitHub</a> &#x4E0A;&#xFF0C;&#x9664;&#x4E86;&#x628A;APPID&#x548C;secret&#x4EC0;&#x4E48;&#x7684;&#x66FF;&#x6362;&#x6210;&#x793A;&#x4F8B;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5176;&#x4ED6;&#x7684;&#x5C31;&#x548C;&#x6211;&#x5728;OpenShift&#x4E0A;&#x53D1;&#x5E03;&#x7684;&#x4EE3;&#x7801;&#x4E00;&#x6A21;&#x4E00;&#x6837;&#x4E86;&#x3002; </p>
+<h2 id="&#x53C2;&#x8003;&#x8D44;&#x6E90;">&#x53C2;&#x8003;&#x8D44;&#x6E90;</h2><ol>
+<li><p>Jose Annunziato &#x5982;&#x4F55;&#x5229;&#x7528;OpenShift &#x53D1;&#x5E03; Node.js&#x5E94;&#x7528;&#x7684;&#x89C6;&#x9891;&#xFF1A; <a href="https://www.youtube.com/watch?v=wnRtA7a0ST0" target="_blank" rel="external">https://www.youtube.com/watch?v=wnRtA7a0ST0</a></p>
+</li>
+<li><p>alexu84: Bing translation API &#x7684;Node.js wrapper <a href="https://github.com/alexu84/bing-translatehttps://github.com/alexu84/bing-translate" target="_blank" rel="external">https://github.com/alexu84/bing-translatehttps://github.com/alexu84/bing-translate</a></p>
+</li>
+<li><p>JacksonTian: &#x5FAE;&#x4FE1;API&#x7684;Node.js wrapper <a href="https://github.com/node-webot/wechat" target="_blank" rel="external">https://github.com/node-webot/wechat</a></p>
+</li>
+<li><p>Bing Translation API: <a href="http://blogs.msdn.com/b/translation/p/gettingstarted1.aspx" target="_blank" rel="external">http://blogs.msdn.com/b/translation/p/gettingstarted1.aspx</a></p>
+</li>
+<li><p>&#x6211;&#x7684;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A; <a href="https://github.com/kaige/KDict/tree/master/openshift_host_code/kdict" target="_blank" rel="external">https://github.com/kaige/KDict/tree/master/openshift_host_code/kdict</a></p>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/transcribe/">transcribe</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Node-js/">Node.js</a><a href="/tags/OpenShift/">OpenShift</a><a href="/tags/Web服务/">Web服务</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1696217" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/07/25/8dd1348/" title="NODEJS项目实践0.4 [domain,pm2,log4js,md5] -">
+  <strong>上一篇：</strong><br/>
+  <span>
+  NODEJS项目实践0.4 [domain,pm2,log4js,md5] -</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/07/25/8dc6380/"  title="mbot机器人试玩分享 -">
+ <strong>下一篇：</strong><br/> 
+ <span>mbot机器人试玩分享 -
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+	<!--���ٰ�-->
+	<div id="SOHUCS"></div>
+	<script charset="utf-8" type="text/javascript" src="http://assets.changyan.sohu.com/upload/changyan.js" ></script>
+	<script type="text/javascript">
+		window.changyan.api.config({
+			appid: 'cyrNEabSF',
+			conf: 'prod_034326b8fb64167667674dc334104436'
+		});
+	</script>
+</div>
+
+
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_微信公众号开发"><span class="toc-number">1.</span> <span class="toc-text">1. 微信公众号开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_利用OpenShift托管Node-js_Web服务"><span class="toc-number">2.</span> <span class="toc-text">2. 利用OpenShift托管Node.js Web服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_使用bing-translate_和wechat_NPM_module"><span class="toc-number">3.</span> <span class="toc-text">3. 使用bing-translate 和wechat NPM module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-_关于Microsoft_Bing_Translation_API"><span class="toc-number">4.</span> <span class="toc-text">4. 关于Microsoft Bing Translation API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资源"><span class="toc-number">5.</span> <span class="toc-text">参考资源</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/transcribe/" title="transcribe">transcribe<sup>21</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Node-js/" title="Node.js">Node.js<sup>19</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Gulp/" title="Gulp">Gulp<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Chromium-OS/" title="Chromium OS">Chromium OS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Qt/" title="Qt">Qt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/加密解密/" title="加密解密">加密解密<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Web服务/" title="Web服务">Web服务<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/OpenShift/" title="OpenShift">OpenShift<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Arduino/" title="Arduino">Arduino<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Firmware/" title="Firmware">Firmware<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/CoffeeScript/" title="CoffeeScript">CoffeeScript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Ubuntu/" title="Ubuntu">Ubuntu<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GitHub/" title="GitHub">GitHub<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Net/" title=".Net">.Net<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MacOS/" title="MacOS">MacOS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/就业/" title="就业">就业<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+<div class="weiboshow">
+	<p class="asidetitle">新浪微博</p>
+	<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1289635200&verifier=e6bef170&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/512316815" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/sblig" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/sblig" target="_blank" title="fblog">fblog</a> © 2015
+		
+		<a href="/about" target="_blank" title="edwin">edwin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
